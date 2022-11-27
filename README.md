@@ -1,8 +1,12 @@
 # Snitch Plugin
 
-**This README.md file should be modified to describe the features, installation, configuration, and general usage of the plugin.**
-
 The **Snitch** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). Passes user information to Twig
+
+## About security
+
+This plugin should be used with care as it can reveal sensitive configuration data.
+
+You are advised to enable the plugin for your development environment only. Never enable this plugin in a production environment.
 
 ## Installation
 
@@ -37,16 +41,16 @@ Before configuring this plugin, you should copy the `user/plugins/snitch/snitch.
 Here is the default configuration and an explanation of available options:
 
 ```yaml
-enabled: true
+enabled: false
 ```
 
 Note that if you use the Admin Plugin, a file with your configuration named snitch.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
 
 ## Usage
 
-**Describe how to use the plugin.**
+First enable the plugin.
 
-Using the example in [Groups and Permissions](https://learn.getgrav.org/16/advanced/groups-and-permissions), create groups in `user/config/groups.yaml`:
+Follow along using the example in [Groups and Permissions](https://learn.getgrav.org/advanced/groups-and-permissions) and create these three groups in `user/config/groups.yaml`:
 
 ```
 registered:
@@ -83,7 +87,7 @@ groups:
   - paid
 ```
 
-Use the new Twig variables `accounts` and `groups` to create a list (array) of all members of a certain group:
+Now use the newly available Twig variables `accounts` and `groups` to create a list (array) of all members of a certain group:
 
 ```
 {% set group = 'paid' %}
@@ -102,12 +106,3 @@ Use the new Twig variables `accounts` and `groups` to create a list (array) of a
 ### Notes
 
 Note that for security reasons user passwords are not transferred to Twig.
-
-## Credits
-
-**Did you incorporate third-party code? Want to thank somebody?**
-
-## To Do
-
-- [ ] Future plans, if any
-
