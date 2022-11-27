@@ -1,15 +1,14 @@
 name: Snitch
-version: 0.1.0
+version: 0.1.1
 description: Passes user information to Twig
 icon: plug
 author:
   name: bleutzinn
   email: ron@rwgc.nl
 homepage: https://github.com/bleutzinn/grav-plugin-snitch
-demo: http://demo.yoursite.com
-keywords: grav, plugin, etc
+keywords: grav, plugin, twig
 bugs: https://github.com/bleutzinn/grav-plugin-snitch/issues
-docs: https://github.com/bleutzinn/grav-plugin-snitch/blob/develop/README.md
+docs: https://github.com/bleutzinn/grav-plugin-snitch/#readme
 license: MIT
 
 form:
