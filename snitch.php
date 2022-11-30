@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin;
 
 use Grav\Common\Grav;
@@ -10,8 +11,7 @@ use RocketTheme\Toolbox\Event\Event;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class SnitchPlugin
- * @package Grav\Plugin
+ * Class SnitchPlugin.
  */
 class SnitchPlugin extends Plugin
 {
@@ -28,12 +28,12 @@ class SnitchPlugin extends Plugin
     public static function getSubscribedEvents()
     {
         return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 0]
+            'onPluginsInitialized' => ['onPluginsInitialized', 0],
         ];
     }
 
     /**
-     * Initialize the plugin
+     * Initialize the plugin.
      */
     public function onPluginsInitialized()
     {
@@ -44,27 +44,19 @@ class SnitchPlugin extends Plugin
 
         // Enable the main event we are interested in
         $this->enable([
-            'onPagesInitialized' => ['onPagesInitialized', 0]
+            'onPagesInitialized' => ['onPagesInitialized', 0],
         ]);
     }
 
-    /**
-     * 
-     *
-     * @param Event $e
-     */
     public function onPagesInitialized(Event $e)
     {
-
-        //$twig = $this->grav['twig'];
         $twig = Grav::instance()['twig'];
-        
-        $file = $this->grav['locator']->findResource('config://groups' . YAML_EXT, true, true);
+
+        $file = $this->grav['locator']->findResource('config://groups'.YAML_EXT, true, true);
         $groups = Yaml::parse(file_get_contents($file));
-        
-        dump($groups);
+
         $twig->twig_vars['groups'] = $groups;
-        
+
         $accounts = [];
 
         // Fields for which the value must be kept hidden and get replaced
@@ -77,31 +69,26 @@ class SnitchPlugin extends Plugin
         foreach ($files as $file) {
             if (Utils::endsWith($file, YAML_EXT)) {
                 // Get content of YAML file as a parsed array
-                $account = Yaml::parse($this->getContents($account_dir . DS . $file));
+                $account = Yaml::parse($this->getContents($account_dir.DS.$file));
 
                 // Add username
                 $username = trim(pathinfo($file, PATHINFO_FILENAME));
                 Utils::setDotNotation($account, 'username', $username, $merge = false);
 
-                // Mask 
+                // Mask
                 foreach ($fields as $field => $value) {
                     Utils::setDotNotation($account, 'hashed_password', $value, $merge = false);
-
                 }
                 $accounts[$username] = $account;
             }
         }
-        dump($accounts);
 
         $twig->twig_vars['accounts'] = $accounts;
-
-        dump($twig->twig_vars);
-        
     }
 
-
-    private function getContents($fn) {
-        if (strpos($fn, '://') !== false ){
+    private function getContents($fn)
+    {
+        if (strpos($fn, '://') !== false) {
             $path = $this->grav['locator']->findResource($fn, true);
         } else {
             $path = $fn;
@@ -109,7 +96,7 @@ class SnitchPlugin extends Plugin
         if (file_exists($path)) {
             return file_get_contents($path);
         }
+
         return null;
     }
-
 }
